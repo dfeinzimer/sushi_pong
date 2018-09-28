@@ -2,6 +2,7 @@ import pygame.font
 from pygame.sprite import Group
 
 from ship import Ship
+from ball import Ball
 
 class Scoreboard():
     """A class to report scoring information."""
@@ -10,10 +11,10 @@ class Scoreboard():
         """Show how much sushi remains"""
         self.sushis = Group()
         for sushi_number in range(self.stats.ships_left):
-            ship = Ship(self.ai_settings, self.screen)
-            ship.rect.x = 10 + sushi_number * ship.rect.width
-            ship.rect.y = 10
-            self.sushis.add(ship)
+            sushi = Ball(self.ai_settings, self.screen)
+            sushi.rect.x = 10 + sushi_number * sushi.rect.width
+            sushi.rect.y = 10
+            self.sushis.add(sushi)
 
     def prep_level(self):
         """Turn the level into a rendered image."""
