@@ -6,10 +6,10 @@ from ball import Ball
 class Scoreboard():
     """A class to report scoring information."""
 
-    def prep_ships(self):
+    def prep_sushis(self):
         """Show how much sushi remains"""
         self.sushis = Group()
-        for sushi_number in range(self.stats.ships_left):
+        for sushi_number in range(self.stats.sushis_left):
             sushi = Ball(self.ai_settings, self.screen)
             sushi.rect.x = 10 + sushi_number * sushi.rect.width
             sushi.rect.y = 10
@@ -72,4 +72,4 @@ class Scoreboard():
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
-        self.prep_ships()
+        self.prep_sushis()

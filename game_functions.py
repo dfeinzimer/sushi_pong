@@ -43,7 +43,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
         sb.prep_score()
         sb.prep_high_score()
         sb.prep_level()
-        sb.prep_ships()
+        sb.prep_sushis()
 
         # Empty the list of aliens and bullets.
         aliens.empty()
@@ -187,12 +187,12 @@ def change_fleet_direction(ai_settings, aliens):
 
 def ship_hit(ai_settings, screen, stats, sb, ship, aliens, bullets):
     """Respond to the ship being hit by an alien."""
-    if stats.ships_left > 0:
-        # Decrement ships_left.
-        stats.ships_left -= 1
+    if stats.sushis_left > 0:
+        # Decrement sushis_left.
+        stats.sushis_left -= 1
 
         # Update scoreboard.
-        sb.prep_ships()
+        sb.prep_sushis()
 
         # Empty the list of aliens and bullets.
         aliens.empty()
