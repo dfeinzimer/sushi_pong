@@ -1,3 +1,4 @@
 This is an adaptation of the classic pong game. For academic purposes only.
 
-Sushi illustration © Anna42f via dreamstime.com
+Sushi illustration: © Anna42f via dreamstime.com\
+Paddle illustration: everythingchopsticks.com

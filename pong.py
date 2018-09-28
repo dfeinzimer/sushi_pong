@@ -4,7 +4,7 @@ from settings import Settings
 from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
-from ship import Ship
+from paddle import Paddle
 import game_functions as gf
 
 def run_game():
@@ -23,7 +23,7 @@ def run_game():
     sb = Scoreboard(ai_settings, screen, stats)
 
     # Make a ship, a group of bullets, and a group of aliens.
-    ship = Ship(ai_settings, screen)
+    ship = Paddle(ai_settings, screen)
     # Make a group to store bullets in.
     bullets = Group()
     aliens = Group()
