@@ -1,4 +1,3 @@
-import sys
 import pygame
 from pygame.sprite import Group
 from settings import Settings
@@ -15,7 +14,7 @@ def run_game():
     ai_settings = Settings()
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
-    pygame.display.set_caption("Alien Invasion")
+    pygame.display.set_caption('Pong')
 
     # Make the Play button.
     play_button = Button(ai_settings, screen, "Play")
