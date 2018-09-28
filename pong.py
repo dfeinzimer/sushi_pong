@@ -22,19 +22,27 @@ def run_game():
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
 
-    # Make a ship and a group of sushi_balls.
+    # Make a single ship and groups of sushi_balls, user paddles and ai paddles.
     ship = Paddle(ai_settings, screen)
+    user_paddles = Group()
+    ai_paddles = Group()
     sushi_ball = Group()
 
     # Create the fleet of sushi.
     gf.create_fleet(ai_settings, screen, ship, sushi_ball)
+    # Create the fleet of user paddles.
+    gf.create_user_paddles(ai_settings, screen, user_paddles)
+    # Create the fleet of ai paddles.
+    gf.create_ai_paddles(ai_settings, screen, ai_paddles)
 
     # Start the main loop for the game.
     while True:
         gf.check_events(ai_settings, screen, stats, sb, play_button, ship, sushi_ball)
 
         if stats.game_active:
+            # Move the ship
             ship.update()
+            # Check for collisions between sushi, screen edges and padles
             gf.update_aliens(ai_settings, screen, stats, sb, ship, sushi_ball)
 
         gf.update_screen(ai_settings, screen, stats, sb, ship, sushi_ball, play_button)

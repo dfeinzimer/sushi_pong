@@ -2,6 +2,7 @@ import sys
 from time import sleep
 import pygame
 from ball import Ball
+from paddle import Paddle
 
 def check_high_score(stats, sb):
     """Check to see if there's a new high score."""
@@ -20,8 +21,7 @@ def check_events(ai_settings, screen, stats, sb, play_button, ship, aliens):
             check_keyup_events(event, ship)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, screen, stats, sb, play_button,
-                              ship, aliens, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, sb, play_button, ship, aliens, mouse_x, mouse_y)
 
 def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
                       aliens, mouse_x, mouse_y):
@@ -52,7 +52,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, ship,
 
 
 def update_screen(ai_settings, screen, stats, sb, ship, aliens, play_button):
-    """Update  images on the screen and flip to the new screen."""
+    """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
     ship.blitme()
@@ -120,14 +120,40 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     number_rows = 1
     return number_rows
 
-def create_sushi(ai_settings, screen, aliens, alien_number, row_number):
+def create_sushi(ai_settings, screen, sushi_balls, alien_number, row_number):
     """Create and place a sushi piece."""
-    alien = Ball(ai_settings, screen)
-    alien_width = alien.rect.width
-    alien.x = alien_width + 2 * alien_width * alien_number
-    alien.rect.x = alien.x
-    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
-    aliens.add(alien)
+    sushi = Ball(ai_settings, screen)
+    sushi_width = sushi.rect.width
+    sushi.x = sushi_width + 2 * sushi_width * alien_number
+    sushi.rect.x = sushi.x
+    sushi.rect.y = sushi.rect.height + 2 * sushi.rect.height * row_number
+    sushi_balls.add(sushi)
+
+def create_ai_paddles(ai_settings, screen, ai_paddles):
+    """Create a full fleet of ai paddles."""
+    ai_paddles_top = Paddle(ai_settings, screen)
+    ai_paddles_top.y = 200
+    ai_paddles_top.rect.y = ai_paddles_top.y
+    ai_paddles.add(ai_paddles_top)
+
+    user_paddles_bottom = Paddle(ai_settings, screen)
+    ai_paddles.add(user_paddles_bottom)
+
+    ai_paddles_left = Paddle(ai_settings, screen)
+    ai_paddles.add(ai_paddles_left)
+
+def create_user_paddles(ai_settings, screen, user_paddles):
+    """Create a full fleet of user paddles."""
+    user_paddles_top = Paddle(ai_settings, screen)
+    user_paddles_top.y = 200
+    user_paddles_top.rect.y = user_paddles_top.y
+    user_paddles.add(user_paddles_top)
+
+    user_paddles_bottom = Paddle(ai_settings, screen)
+    user_paddles.add(user_paddles_bottom)
+
+    user_paddles_right = Paddle(ai_settings, screen)
+    user_paddles.add(user_paddles_right)
 
 def create_fleet(ai_settings, screen, ship, aliens):
     """Create a full fleet of sushi."""
@@ -190,8 +216,8 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens):
 
 def update_aliens(ai_settings, screen, stats, sb, ship, aliens):
     """
-    Check if the fleet is at an edge,
-      and then update the positions of all aliens in the fleet.
+    Check if the sushi is at an edge,
+      and then update the positions of all sushi in the fleet.
     """
     check_fleet_edges(ai_settings, aliens)
     aliens.update()

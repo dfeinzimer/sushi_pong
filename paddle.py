@@ -14,7 +14,7 @@ class Paddle(Sprite):
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
-        # Start each new ship at the bottom center of the screen.
+        # Start each new paddle at the bottom center of the screen.
         self.rect.centerx = self.screen_rect.centerx
         self.rect.bottom = self.screen_rect.bottom
 
@@ -27,7 +27,7 @@ class Paddle(Sprite):
 
     def update(self):
         """Update the ship's position based on the movement flags."""
-        # Update the ship's center value, not the rect.
+        # Update the paddles's center value, not the rect.
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.center += self.ai_settings.ship_speed_factor
         if self.moving_left and self.rect.left > 0:
