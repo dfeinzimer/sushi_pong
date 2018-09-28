@@ -5,7 +5,7 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
-from alien import Alien
+from ball import Alien
 import game_functions as gf
 
 def run_game():

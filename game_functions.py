@@ -2,7 +2,7 @@ import sys
 from time import sleep
 import pygame
 from bullet import Bullet
-from alien import Alien
+from ball import Alien
 
 def check_high_score(stats, sb):
     """Check to see if there's a new high score."""
