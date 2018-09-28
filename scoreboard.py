@@ -1,7 +1,6 @@
 import pygame.font
 from pygame.sprite import Group
 
-from ship import Ship
 from ball import Ball
 
 class Scoreboard():
