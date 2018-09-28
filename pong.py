@@ -5,7 +5,6 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
-from ball import Ball
 import game_functions as gf
 
 def run_game():
@@ -14,7 +13,7 @@ def run_game():
     ai_settings = Settings()
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height))
-    pygame.display.set_caption('Pong')
+    pygame.display.set_caption('Sushi Pong')
 
     # Make the Play button.
     play_button = Button(ai_settings, screen, "Play")
@@ -31,9 +30,6 @@ def run_game():
 
     # Create the fleet of aliens.
     gf.create_fleet(ai_settings, screen, ship, aliens)
-
-    # Set the background color.
-    bg_color = (230, 230, 230)
 
     # Start the main loop for the game.
     while True:
