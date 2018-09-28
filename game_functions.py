@@ -2,7 +2,7 @@ import sys
 from time import sleep
 import pygame
 from bullet import Bullet
-from ball import Alien
+from ball import Ball
 
 def check_high_score(stats, sb):
     """Check to see if there's a new high score."""
@@ -151,7 +151,7 @@ def get_number_rows(ai_settings, ship_height, alien_height):
 
 def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     """Create an alien and place it in the row."""
-    alien = Alien(ai_settings, screen)
+    alien = Ball(ai_settings, screen)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
@@ -161,7 +161,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
 def create_fleet(ai_settings, screen, ship, aliens):
     """Create a full fleet of aliens."""
     # Create an alien and find the number of aliens in a row.
-    alien = Alien(ai_settings, screen)
+    alien = Ball(ai_settings, screen)
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
     number_rows = get_number_rows(ai_settings, ship.rect.height,
                                   alien.rect.height)

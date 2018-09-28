@@ -5,7 +5,7 @@ from game_stats import GameStats
 from scoreboard import Scoreboard
 from button import Button
 from ship import Ship
-from ball import Alien
+from ball import Ball
 import game_functions as gf
 
 def run_game():
@@ -36,7 +36,7 @@ def run_game():
     bg_color = (230, 230, 230)
 
     # Make an alien.
-    alien = Alien(ai_settings, screen)
+    alien = Ball(ai_settings, screen)
 
     # Start the main loop for the game.
     while True:
