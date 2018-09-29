@@ -137,12 +137,41 @@ def create_sushi(ai_settings, screen, sushi_balls):
     sushi_balls.add(sushi)
 
 
-def check_fleet_edges(ai_settings, sushis):
-    # Respond appropriately if any sushi have reached an edge.
+def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
     for sushi in sushis.sprites():
         if sushi.check_edges():
-            change_fleet_direction(ai_settings, sushis)
-            break
+            # Respond appropriately if any sushi have reached an edge.
+            if stats.sushis_left > 0:
+
+                if stats.last_hit == "AI":
+                    stats.ai_score += ai_settings.alien_points
+                    print("AI scores!")
+                elif stats.last_hit == "USER":
+                    stats.user_score += ai_settings.alien_points
+                    print("User scores!")
+                elif stats.last_hit == "NULL":
+                    print("Nobody scores!")
+
+                # Decrement remaining sushi
+                stats.sushis_left -= 1
+
+                stats.last_hit = "NULL"
+
+                # Update scoreboard.
+                sb.prep_sushis()
+
+                # Empty the list of sushi
+                sushis.empty()
+
+                # Create new sushi
+                create_sushi(ai_settings, screen, sushis)
+
+                # Pause
+                sleep(0.5)
+
+            else:
+                stats.game_active = False
+                pygame.mouse.set_visible(True)
 
 
 def change_fleet_direction(ai_settings, aliens):
@@ -152,28 +181,15 @@ def change_fleet_direction(ai_settings, aliens):
     ai_settings.fleet_direction *= -1
 
 
-def paddle_hit(ai_settings, screen, stats, sb, ship, aliens):
+def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     # Respond to a paddle being hit by sushi
-    if stats.sushis_left > 0:
-        # Decrement sushis_left.
-        stats.sushis_left -= 1
-
-        # Update scoreboard.
-        sb.prep_sushis()
-
-        # Empty the list of aliens.
-        aliens.empty()
-
-        # Create a new fleet and center the ship.
-        create_sushi(ai_settings, screen, aliens)
-        ship.center_ship()
-
-        # Pause
-        sleep(0.5)
-
-    else:
-        stats.game_active = False
-        pygame.mouse.set_visible(True)
+    if paddle.paddle_type == "USER":
+        stats.last_hit = "USER"
+        print("User hits")
+    elif paddle.paddle_type == "AI":
+        stats.last_hit = "AI"
+        print("AI hits")
+    change_fleet_direction(ai_settings, sushis)
 
 
 def check_aliens_bottom(ai_settings, screen, stats, sb, ship, sushi):
@@ -187,10 +203,10 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, sushi):
 
 
 def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
-    # Check if the sushi is at an edge, and then update the positions of all sushi in the fleet.
-    check_fleet_edges(ai_settings, sushi_ball)
+    # Check if the sushi is at an edge
+    check_sushi_at_edges(ai_settings, screen, stats, sb, sushi_ball)
 
-    # Look for alien-ship collisions.
+    # Look for sushi-paddle collisions.
     for paddle in paddles:
         if pygame.sprite.spritecollideany(paddle, sushi_ball):
             paddle_hit(ai_settings, screen, stats, sb, paddle, sushi_ball)
