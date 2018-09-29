@@ -195,6 +195,7 @@ def update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_
     a_p_b.update()
     a_p_t.update()
     a_p_l.update()
+    sushi_ball.update()
 
     # Look for alien-ship collisions. TODO add an if for every paddle
     if pygame.sprite.spritecollideany(u_p_b, sushi_ball):
