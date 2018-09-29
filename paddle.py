@@ -22,35 +22,35 @@ class Paddle(Sprite):
         self.moving_down = False
 
     def set_top_paddle(self):
+        self.rect.centerx = 925
         self.center = float(self.rect.centerx)
         self.rect.top = self.screen_rect.top
-        self.rect.centerx = self.screen_rect.centerx
         self.yval = float(self.rect.centery)
 
     def set_bottom_paddle(self):
+        self.rect.centerx = 925
         self.center = float(self.rect.centerx)
         self.rect.bottom = self.screen_rect.bottom
-        self.rect.centerx = self.screen_rect.centerx
         self.yval = float(self.rect.centery)
 
     def set_right_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
-        self.center = float(self.rect.centerx)
-        self.rect.right = self.screen_rect.right
-        self.yval = float(self.rect.centery)
+        self.rect.centerx = 1225
+        self.center = 1225
+        self.yval = 350
 
     def set_left_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
-        self.center = float(self.rect.centerx)
-        self.rect.left = self.screen_rect.left
-        self.yval = float(self.rect.centery)
+        self.rect.centerx = 75
+        self.center = 75
+        self.yval = 350
 
     def update(self):
         """Update the paddle's position based on the movement flags."""
         # Update the paddles's center value, not the rect.
         if self.moving_right and self.rect.right < 1150:
             self.center += self.ai_settings.ship_speed_factor
-        if self.moving_left and self.rect.left > 0:
+        if self.moving_left and self.rect.left > 600:
             self.center -= self.ai_settings.ship_speed_factor
         if self.moving_up and self.rect.top > 50:
             self.yval -= self.ai_settings.ship_speed_factor
@@ -64,7 +64,3 @@ class Paddle(Sprite):
     def blitme(self):
         """Draw the ship at its current location."""
         self.screen.blit(self.image, self.rect)
-
-    def center_ship(self):
-        """Center the ship on the screen."""
-        self.center = self.screen_rect.centerx

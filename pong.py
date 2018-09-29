@@ -12,8 +12,7 @@ def run_game():
     # Initialize pygame, settings, and screen object.
     pygame.init()
     ai_settings = Settings()
-    screen = pygame.display.set_mode(
-        (ai_settings.screen_width, ai_settings.screen_height))
+    screen = pygame.display.set_mode((ai_settings.screen_width, ai_settings.screen_height))
     pygame.display.set_caption('Sushi Pong')
 
     # Make the Play button.
@@ -34,8 +33,6 @@ def run_game():
     u_p_r.set_right_paddle()
 
     sushi_ball = Group()
-
-    # Create sushi.
     gf.create_sushi(ai_settings, screen, sushi_ball)
 
     # Start the main loop for the game.
