@@ -7,6 +7,7 @@ from button import Button
 from paddle import Paddle
 import game_functions as gf
 
+
 def run_game():
     # Initialize pygame, settings, and screen object.
     pygame.init()
@@ -22,29 +23,34 @@ def run_game():
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
 
-    # Make a single ship and groups of sushi_balls, user paddles and ai paddles.
-    ship = Paddle(ai_settings, screen)
-    user_paddles = Group()
-    ai_paddles = Group()
+    # Make a group of sushi_balls, user paddles and ai paddles.
+    u_p_b = Paddle(ai_settings, screen)
+    u_p_b.set_bottom_paddle()
+
+    u_p_t = Paddle(ai_settings, screen)
+    u_p_t.set_top_paddle()
+
+    u_p_r = Paddle(ai_settings, screen)
+    u_p_r.set_right_paddle()
+
     sushi_ball = Group()
 
-    # Create the fleet of sushi.
-    gf.create_fleet(ai_settings, screen, ship, sushi_ball)
-    # Create the fleet of user paddles.
-    gf.create_user_paddles(ai_settings, screen, user_paddles)
-    # Create the fleet of ai paddles.
-    gf.create_ai_paddles(ai_settings, screen, ai_paddles)
+    # Create sushi.
+    gf.create_sushi(ai_settings, screen, sushi_ball)
 
     # Start the main loop for the game.
     while True:
-        gf.check_events(ai_settings, screen, stats, sb, play_button, ship, sushi_ball)
+        gf.check_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, sushi_ball)
 
         if stats.game_active:
             # Move the ship
-            ship.update()
+            u_p_b.update()
+            u_p_t.update()
+            u_p_r.update()
             # Check for collisions between sushi, screen edges and padles
-            gf.update_aliens(ai_settings, screen, stats, sb, ship, sushi_ball)
+            gf.update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_ball)
 
-        gf.update_screen(ai_settings, screen, stats, sb, ship, sushi_ball, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_ball, play_button)
+
 
 run_game()
