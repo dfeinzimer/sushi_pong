@@ -26,36 +26,42 @@ class Paddle(Sprite):
         self.center = float(self.rect.centerx)
         self.rect.top = self.screen_rect.top
         self.yval = float(self.rect.centery)
+        self.paddle_type = "USER"
 
     def set_ai_top_paddle(self):
         self.rect.centerx = 300
         self.center = float(self.rect.centerx)
         self.rect.top = self.screen_rect.top
         self.yval = float(self.rect.centery)
+        self.paddle_type = "AI"
 
     def set_user_bottom_paddle(self):
         self.rect.centerx = 925
         self.center = float(self.rect.centerx)
         self.rect.bottom = self.screen_rect.bottom
         self.yval = float(self.rect.centery)
+        self.paddle_type = "USER"
 
     def set_ai_bottom_paddle(self):
         self.rect.centerx = 300
         self.center = float(self.rect.centerx)
         self.rect.bottom = self.screen_rect.bottom
         self.yval = float(self.rect.centery)
+        self.paddle_type = "AI"
 
     def set_user_right_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
         self.rect.centerx = 1225
         self.center = 1225
         self.yval = 350
+        self.paddle_type = "USER"
 
     def set_ai_left_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
         self.rect.centerx = 75
         self.center = 75
         self.yval = 350
+        self.paddle_type = "AI"
 
     def update(self):
         """Update the paddle's position based on the movement flags."""

@@ -33,6 +33,10 @@ class Ball(Sprite):
             return True
         elif self.rect.left <= 0:
             return True
+        elif self.rect.top <= 0:
+            return True
+        elif self.rect.bottom >= screen_rect.bottom:
+            return True
 
     def update(self):
         """Move the alien right or left."""

@@ -1,5 +1,5 @@
 class Settings():
-    """A class to store all settings for sushi_pong"""
+    """A class to store all settings for Sushi Pong"""
 
     def __init__(self):
         """Initialize the game's static settings."""
