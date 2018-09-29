@@ -21,25 +21,37 @@ class Paddle(Sprite):
         self.moving_up = False
         self.moving_down = False
 
-    def set_top_paddle(self):
+    def set_user_top_paddle(self):
         self.rect.centerx = 925
         self.center = float(self.rect.centerx)
         self.rect.top = self.screen_rect.top
         self.yval = float(self.rect.centery)
 
-    def set_bottom_paddle(self):
+    def set_ai_top_paddle(self):
+        self.rect.centerx = 300
+        self.center = float(self.rect.centerx)
+        self.rect.top = self.screen_rect.top
+        self.yval = float(self.rect.centery)
+
+    def set_user_bottom_paddle(self):
         self.rect.centerx = 925
         self.center = float(self.rect.centerx)
         self.rect.bottom = self.screen_rect.bottom
         self.yval = float(self.rect.centery)
 
-    def set_right_paddle(self):
+    def set_ai_bottom_paddle(self):
+        self.rect.centerx = 300
+        self.center = float(self.rect.centerx)
+        self.rect.bottom = self.screen_rect.bottom
+        self.yval = float(self.rect.centery)
+
+    def set_user_right_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
         self.rect.centerx = 1225
         self.center = 1225
         self.yval = 350
 
-    def set_left_paddle(self):
+    def set_ai_left_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
         self.rect.centerx = 75
         self.center = 75

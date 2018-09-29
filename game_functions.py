@@ -11,21 +11,21 @@ def check_high_score(stats, sb):
         sb.prep_high_score()
 
 
-def check_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, sushi_ball):
-    """Responds to keypresses and mouse events."""
+def check_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
+    # Respond to keypresses and mouse events.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            check_keydown_events(event, ai_settings, screen, u_p_b, u_p_t, u_p_r)
+            check_keydown_events(event, ai_settings, screen, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l)
         elif event.type == pygame.KEYUP:
-            check_keyup_events(event, u_p_b, u_p_t, u_p_r)
+            check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r,sushi_ball, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y)
 
 
-def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, sushi_ball, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y):
     """Start a new game when the player clicks Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
@@ -51,13 +51,16 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t,
         create_sushi(ai_settings, screen, sushi_ball)
 
 
-def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_ball, play_button):
+def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
     u_p_b.blitme()
     u_p_t.blitme()
     u_p_r.blitme()
+    a_p_b.blitme()
+    a_p_t.blitme()
+    a_p_l.blitme()
     sushi_ball.draw(screen)
 
     # Draw the score information.
@@ -71,7 +74,7 @@ def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_bal
     pygame.display.flip()
 
 
-def check_keydown_events(event, ai_settings, screen, u_p_b, u_p_t, u_p_r):
+def check_keydown_events(event, ai_settings, screen, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l):
     """Respond to key presses."""
     if event.key == pygame.K_RIGHT:
         u_p_b.moving_right = True
@@ -87,32 +90,32 @@ def check_keydown_events(event, ai_settings, screen, u_p_b, u_p_t, u_p_r):
         sys.exit()
 
 
-def check_keyup_events(event, u_p_b, u_b_t, u_p_r):
+def check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l):
     """Respond to key releases."""
     if event.key == pygame.K_RIGHT:
         u_p_b.moving_right = False
-        u_b_t.moving_right = False
+        u_p_t.moving_right = False
     elif event.key == pygame.K_LEFT:
         u_p_b.moving_left = False
-        u_b_t.moving_left = False
+        u_p_t.moving_left = False
     elif event.key == pygame.K_UP:
         u_p_r.moving_up = False
     elif event.key == pygame.K_DOWN:
         u_p_r.moving_down = False
 
 
-def check_bullet_alien_collisions(ai_settings, screen, stats, sb, aliens, bullets):
-    """Respond to bullet-alien collisions."""
-    # Remove any bullets and aliens that have collided.
-    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets):
+    """Respond to paddle-sushi collisions."""
+    # Generate a collision list
+    collisions = pygame.sprite.groupcollide(bullets, sushi, True, True)
 
     if collisions:
-        for aliens in collisions.values():
-            stats.score += ai_settings.alien_points * len(aliens)
+        for sushi in collisions.values():
+            stats.score += ai_settings.alien_points * len(sushi)
             sb.prep_score()
         check_high_score(stats, sb)
 
-    if len(aliens) == 0:
+    if len(sushi) == 0:
         # If the entire fleet is destroyed, start a new level.
         bullets.empty()
         ai_settings.increase_speed()
@@ -121,7 +124,7 @@ def check_bullet_alien_collisions(ai_settings, screen, stats, sb, aliens, bullet
         stats.level += 1
         sb.prep_level()
 
-        create_sushi(ai_settings, screen, aliens)
+        create_sushi(ai_settings, screen, sushi)
 
 
 def create_sushi(ai_settings, screen, sushi_balls):
@@ -134,11 +137,11 @@ def create_sushi(ai_settings, screen, sushi_balls):
     sushi_balls.add(sushi)
 
 
-def check_fleet_edges(ai_settings, aliens):
-    """Respond appropriately if any aliens have reached an edge."""
-    for alien in aliens.sprites():
-        if alien.check_edges():
-            change_fleet_direction(ai_settings, aliens)
+def check_fleet_edges(ai_settings, sushis):
+    """Respond appropriately if any sushi have reached an edge."""
+    for sushi in sushis.sprites():
+        if sushi.check_edges():
+            change_fleet_direction(ai_settings, sushis)
             break
 
 
@@ -183,16 +186,19 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens):
             break
 
 
-def update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_ball):
+def update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
     # Check if the sushi is at an edge, and then update the positions of all sushi in the fleet.
     check_fleet_edges(ai_settings, sushi_ball)
     u_p_b.update()
     u_p_t.update()
     u_p_r.update()
+    a_p_b.update()
+    a_p_t.update()
+    a_p_l.update()
 
-    # Look for alien-ship collisions.
+    # Look for alien-ship collisions. TODO add an if for every paddle
     if pygame.sprite.spritecollideany(u_p_b, sushi_ball):
-        ship_hit(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
+        ship_hit(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
 
     # Look for aliens hitting the bottom of the screen.
     check_aliens_bottom(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
