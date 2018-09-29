@@ -11,8 +11,8 @@ def check_high_score(stats, sb):
         sb.prep_high_score()
 
 
-def check_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
-    # Respond to keypresses and mouse events.
+def check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
+    # Respond to keypress and mouse events.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
@@ -138,7 +138,7 @@ def create_sushi(ai_settings, screen, sushi_balls):
 
 
 def check_fleet_edges(ai_settings, sushis):
-    """Respond appropriately if any sushi have reached an edge."""
+    # Respond appropriately if any sushi have reached an edge.
     for sushi in sushis.sprites():
         if sushi.check_edges():
             change_fleet_direction(ai_settings, sushis)
