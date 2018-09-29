@@ -186,20 +186,14 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens):
             break
 
 
-def check_match_events(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
+def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
     # Check if the sushi is at an edge, and then update the positions of all sushi in the fleet.
     check_fleet_edges(ai_settings, sushi_ball)
-    #u_p_b.update()
-    #u_p_t.update()
-    #u_p_r.update()
-    #a_p_b.update()
-    #a_p_t.update()
-    #a_p_l.update()
-    sushi_ball.update()
 
     # Look for alien-ship collisions. TODO add an if for every paddle
-    if pygame.sprite.spritecollideany(u_p_b, sushi_ball):
-        ship_hit(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
+    for paddle in paddles:
+        if pygame.sprite.spritecollideany(paddle, sushi_ball):
+            ship_hit(ai_settings, screen, stats, sb, paddle, sushi_ball)
 
     # Look for aliens hitting the bottom of the screen.
-    check_aliens_bottom(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
+    check_aliens_bottom(ai_settings, screen, stats, sb, paddles, sushi_ball)
