@@ -1,11 +1,12 @@
 import pygame
 from pygame.sprite import Sprite
 
+
 class Ball(Sprite):
-    """A class to represent a single ball in the fleet."""
+    """A class to represent a sushi ball."""
 
     def __init__(self, ai_settings, screen):
-        """Initialize the alien and set its starting position."""
+        """Initialize the sushi ball and set its starting position."""
         super(Ball, self).__init__()
         self.screen = screen
         self.ai_settings = ai_settings
@@ -35,6 +36,5 @@ class Ball(Sprite):
 
     def update(self):
         """Move the alien right or left."""
-        self.x += (self.ai_settings.alien_speed_factor *
-                        self.ai_settings.fleet_direction)
+        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction)
         self.rect.x = self.x

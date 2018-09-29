@@ -2,7 +2,6 @@ import sys
 from time import sleep
 import pygame
 from ball import Ball
-from paddle import Paddle
 
 
 def check_high_score(stats, sb):
@@ -185,18 +184,15 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, aliens):
 
 
 def update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, sushi_ball):
-    """
-    Check if the sushi is at an edge,
-      and then update the positions of all sushi in the fleet.
-    """
+    # Check if the sushi is at an edge, and then update the positions of all sushi in the fleet.
     check_fleet_edges(ai_settings, sushi_ball)
     u_p_b.update()
     u_p_t.update()
     u_p_r.update()
 
     # Look for alien-ship collisions.
-    #if pygame.sprite.spritecollideany(u_p_b, sushi_ball):
-    #    ship_hit(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
+    if pygame.sprite.spritecollideany(u_p_b, sushi_ball):
+        ship_hit(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
 
     # Look for aliens hitting the bottom of the screen.
-    #check_aliens_bottom(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
+    check_aliens_bottom(ai_settings, screen, stats, sb, u_p_b, sushi_ball)
