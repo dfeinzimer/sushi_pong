@@ -60,7 +60,7 @@ def run_game():
             # Move the paddles
             paddles.update()
             # Check for collisions between sushi, screen edges and padles
-            gf.update_aliens(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
+            gf.check_match_events(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
 
         gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button)
 
