@@ -20,12 +20,13 @@ class Ball(Sprite):
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 
+        self.dx = random.randint(0,1)
+        self.dy = random.randint(0,1)
+
         # Store the sushi's exact position.
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
-        self.dx = random.uniform(0, 1)
-        self.dy = random.uniform(0, 1)
 
     def blitme(self):
         """Draw the sushi at its current location."""

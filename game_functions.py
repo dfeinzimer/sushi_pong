@@ -2,7 +2,8 @@ import sys
 from time import sleep
 import pygame
 from ball import Ball
-
+import math
+import random
 
 def check_high_score(stats, sb):
     # Check to see if there's a new high score."""
@@ -104,29 +105,6 @@ def check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l):
         u_p_r.moving_down = False
 
 
-def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets):
-    """Respond to paddle-sushi collisions."""
-    # Generate a collision list
-    collisions = pygame.sprite.groupcollide(bullets, sushi, True, True)
-
-    if collisions:
-        for sushi in collisions.values():
-            stats.score += ai_settings.alien_points * len(sushi)
-            sb.prep_score()
-        check_high_score(stats, sb)
-
-    if len(sushi) == 0:
-        # If the entire fleet is destroyed, start a new level.
-        bullets.empty()
-        ai_settings.increase_speed()
-
-        # Increase level.
-        stats.level += 1
-        sb.prep_level()
-
-        create_sushi(ai_settings, screen, sushi)
-
-
 def create_sushi(ai_settings, screen, sushi_balls):
     """Create and place a sushi piece."""
     sushi = Ball(ai_settings, screen)
@@ -177,10 +155,9 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
 def change_fleet_direction(ai_settings, sushi_pieces):
     # Change the sushi's direction
     for sushi in sushi_pieces.sprites():
-        sushi.dx *= -1
-        sushi.dy *= -1
-        print("Sushi dx: ",sushi.dx)
-        print("Sushi dy: ", sushi.dy)
+        overlap = math.hypot(sushi.dx, sushi.dy)
+        sushi.dx *= math.sin(sushi.dx) * overlap * -1
+        sushi.dy *= math.cos(sushi.dy) * overlap * -1
 
 
 def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
@@ -192,16 +169,6 @@ def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
         stats.last_hit = "AI"
         print("AI hits")
     change_fleet_direction(ai_settings, sushis)
-
-
-def check_aliens_bottom(ai_settings, screen, stats, sb, ship, sushi):
-    # Check if sushi has reached the edge of the screen
-    screen_rect = screen.get_rect()
-    for piece in sushi.sprites():
-        if piece.rect.bottom >= screen_rect.bottom:
-            # Treat this the same as if the ship got hit.
-            paddle_hit(ai_settings, screen, stats, sb, ship, sushi)
-            break
 
 
 def ai_play(ai_settings, screen, stats, sb, a_p_b, a_p_t, a_p_l, sushi):
@@ -239,6 +206,3 @@ def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
     for paddle in paddles:
         if pygame.sprite.spritecollideany(paddle, sushi_ball):
             paddle_hit(ai_settings, screen, stats, sb, paddle, sushi_ball)
-
-    # Look for aliens hitting the bottom of the screen.
-    check_aliens_bottom(ai_settings, screen, stats, sb, paddles, sushi_ball)
