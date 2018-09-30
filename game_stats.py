@@ -28,4 +28,3 @@ class GameStats():
 
     def user_hit(self):
         self.last_hit = "USER"
-

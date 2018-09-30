@@ -1,6 +1,5 @@
 import pygame
 from pygame.sprite import Sprite
-import random
 
 
 class Ball(Sprite):
@@ -16,20 +15,15 @@ class Ball(Sprite):
         self.image = pygame.image.load('images/sushi.png')
         self.rect = self.image.get_rect()
 
-        # Start each new sushi near the top left of the screen.
+        # Start each new alien near the top left of the screen.
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 
-        self.dx = random.randint(0,1)
-        self.dy = random.randint(0,1)
-
-        # Store the sushi's exact position.
+        # Store the alien's exact position.
         self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
-
 
     def blitme(self):
-        """Draw the sushi at its current location."""
+        """Draw the alien at its current location."""
         self.screen.blit(self.image, self.rect)
 
     def check_edges(self):
@@ -45,8 +39,6 @@ class Ball(Sprite):
             return True
 
     def update(self):
-        """Move the sushi left or right."""
-        self.x += self.dx
-        self.y += self.dy
+        """Move the alien right or left."""
+        self.x += (self.ai_settings.alien_speed_factor * self.ai_settings.fleet_direction)
         self.rect.x = self.x
-        self.rect.y = self.y
