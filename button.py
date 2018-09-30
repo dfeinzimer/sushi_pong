@@ -1,6 +1,7 @@
 import pygame.font
 
-class Button():
+
+class Button:
 
     def draw_button(self):
         # Draw blank button and then draw message.
@@ -13,6 +14,7 @@ class Button():
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
+    # noinspection PyUnusedLocal
     def __init__(self, ai_settings, screen, msg):
         """Initialize button attributes"""
         self.screen = screen
@@ -26,7 +28,7 @@ class Button():
         self.font = pygame.font.SysFont(None, 48)
 
         # Build the button's rect object and center it.
-        self.rect = pygame.Rect(0,0, self.width, self.height)
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
 
         # The button message needs to be prepped only once.

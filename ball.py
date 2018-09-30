@@ -25,10 +25,10 @@ class Ball(Sprite):
         self.centery = float(self.rect.centery)
 
         # Store the sushi's direction and speed
-        self.dx = random.randint(2,3)
-        self.dy = random.randint(2,3)
+        self.dx = random.randint(2, 3)
+        self.dy = random.randint(2, 3)
 
-        dx_rando = random.randint(0,100) % 2
+        dx_rando = random.randint(0, 100) % 2
         dy_rando = random.randint(0, 100) % 2
 
         if dx_rando == 0:

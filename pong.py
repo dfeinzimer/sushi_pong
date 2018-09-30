@@ -65,7 +65,7 @@ def run_game():
     # Start the main loop for the game.
     while True:
 
-        gf.check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, game_title)
+        gf.check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, sushi_ball)
 
         if stats.game_active:
             # Move the paddles, sushi
