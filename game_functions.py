@@ -71,6 +71,15 @@ def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_
     if not stats.game_active:
         play_button.draw_button()
         screen.blit(game_title,(325,300))
+        menu_font = pygame.font.SysFont('Arial', 30)
+        if stats.high_score != 0:
+            if stats.user_score > stats.ai_score:
+                winner_greet = menu_font.render("You win!", False, (0, 0, 0))
+            elif stats.user_score < stats.ai_score:
+                winner_greet = menu_font.render("AI wins!", False, (0, 0, 0))
+            elif stats.user_score == stats.ai_score:
+                winner_greet = menu_font.render("Tie, good game!", False, (0, 0, 0))
+            screen.blit(winner_greet, (550, 600))
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()
@@ -170,6 +179,7 @@ def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     elif paddle.paddle_type == "AI":
         stats.last_hit = "AI"
         print("AI hits")
+    ai_settings.increase_speed()
     change_sushi_direction(ai_settings, sushis)
 
 

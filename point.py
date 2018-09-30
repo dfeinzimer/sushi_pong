@@ -19,7 +19,7 @@ class Point:
 
     def setz(self, val): self.__z = val
 
-    # noinspection PyPropertyDefinition
+    # noinspection PyPropertyDefinition,PyTypeChecker
     x = property(getx, gety)
     y = property(gety, sety)
     z = property(getz, setz)
