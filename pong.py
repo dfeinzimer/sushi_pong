@@ -58,6 +58,8 @@ def run_game():
         gf.check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
 
         if stats.game_active:
+            # Move the ai paddles
+            gf.ai_play(ai_settings, screen, stats, sb, a_p_b, a_p_t, a_p_l, sushi_ball)
             # Move the paddles, sushi
             paddles.update()
             sushi_ball.update()

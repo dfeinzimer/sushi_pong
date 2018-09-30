@@ -174,11 +174,13 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
                 pygame.mouse.set_visible(True)
 
 
-def change_fleet_direction(ai_settings, aliens):
-    """Drop the entire fleet and change the fleet's direction."""
-    for alien in aliens.sprites():
-        alien.rect.y += ai_settings.fleet_drop_speed
-    ai_settings.fleet_direction *= -1
+def change_fleet_direction(ai_settings, sushi_pieces):
+    # Change the sushi's direction
+    for sushi in sushi_pieces.sprites():
+        sushi.dx *= -1
+        sushi.dy *= -1
+        print("Sushi dx: ",sushi.dx)
+        print("Sushi dy: ", sushi.dy)
 
 
 def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
@@ -200,6 +202,33 @@ def check_aliens_bottom(ai_settings, screen, stats, sb, ship, sushi):
             # Treat this the same as if the ship got hit.
             paddle_hit(ai_settings, screen, stats, sb, ship, sushi)
             break
+
+
+def ai_play(ai_settings, screen, stats, sb, a_p_b, a_p_t, a_p_l, sushi):
+    for piece in sushi.sprites():
+        if piece.y < a_p_l.rect.y:
+            a_p_l.moving_up = True
+        else:
+            a_p_l.moving_up = False
+
+        if piece.y > a_p_l.rect.y:
+            a_p_l.moving_down = True
+        else:
+            a_p_l.moving_down = False
+
+        if piece.x < a_p_t.rect.x:
+            a_p_t.moving_left = True
+            a_p_b.moving_left = True
+        else:
+            a_p_t.moving_left = False
+            a_p_b.moving_left = False
+
+        if piece.x > a_p_t.rect.x:
+            a_p_t.moving_right = True
+            a_p_b.moving_right = True
+        else:
+            a_p_t.moving_right = False
+            a_p_b.moving_right = False
 
 
 def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
