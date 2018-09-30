@@ -125,8 +125,12 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
     for sushi in sushis.sprites():
         if sushi.check_edges():
             # Respond appropriately if any sushi have reached an edge.
+            sound = pygame.mixer.Sound('sounds/ballwall.wav')
+            pygame.mixer.Sound.play(sound)
             if stats.sushis_left > 0:
                 if sushi.rect.centerx > 600:
+                    s_sound = pygame.mixer.Sound('sounds/score.wav')
+                    pygame.mixer.Sound.play(s_sound)
                     stats.ai_score += ai_settings.alien_points
                     sb.prep_ai_score()
                 elif sushi.rect.centerx < 600:
@@ -173,6 +177,8 @@ def change_sushi_direction(ai_settings, sushi_pieces):
 
 def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     # Respond to a paddle being hit by sushi
+    sound = pygame.mixer.Sound('sounds/ballpaddle.wav')
+    pygame.mixer.Sound.play(sound)
     if paddle.paddle_type == "USER":
         stats.last_hit = "USER"
         print("User hits")
