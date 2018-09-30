@@ -178,7 +178,13 @@ def change_sushi_direction(ai_settings, sushi_pieces):
     ai_settings.fleet_direction *= -1
     '''
     for sushi in sushi_pieces.sprites():
-        if sushi.dx >= 0 and sushi.dy >= 0: # To the right and down
+        if sushi.dx > 0 and sushi.dy > 0:       # To the right and down
+            sushi.dy *= -1
+        elif sushi.dx > 0 and sushi.dy < 0:     # To the right and up
+            sushi.dx *= -1
+        elif sushi.dx < 0 and sushi.dy > 0:     # To the left and down
+            sushi.dy *= -1
+        elif sushi.dx < 0 and sushi.dy < 0:     # To the left and up
             sushi.dy *= -1
 
 

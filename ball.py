@@ -53,5 +53,5 @@ class Ball(Sprite):
         self.centerx += self.dx * self.ai_settings.sushi_speed_factor
         self.rect.centerx = self.centerx
 
-        self.centery += self.dy  * self.ai_settings.sushi_speed_factor
+        self.centery += self.dy * self.ai_settings.sushi_speed_factor
         self.rect.centery = self.centery

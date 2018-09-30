@@ -26,7 +26,7 @@ class Settings():
     def initialize_dynamic_settings(self):
         """Initialize settings that change throughout the game."""
         self.ship_speed_factor = 1.5
-        self.sushi_speed_factor = 1
+        self.sushi_speed_factor = .5
 
         # fleet direction of 1  represents right; -1 represents left.
         self.fleet_direction = 1
