@@ -8,8 +8,9 @@ class Settings():
         self.screen_height = 800
         self.bg_color = (230, 230, 230)
 
-        # Ship settings
-        self.ship_speed_factor = 1.5
+        # Paddle settings
+        self.user_paddle_speed_factor = 1.5
+        self.ai_paddle_speed_factor = .5
         self.ship_limit = 3
 
         # Sushi settings
@@ -25,7 +26,8 @@ class Settings():
 
     def initialize_dynamic_settings(self):
         """Initialize settings that change throughout the game."""
-        self.ship_speed_factor = 1.5
+        self.user_paddle_speed_factor = 1.5
+        self.ai_paddle_speed_factor = .5
         self.sushi_speed_factor = .5
 
         # fleet direction of 1  represents right; -1 represents left.
@@ -36,7 +38,8 @@ class Settings():
 
     def increase_speed(self):
         """Increase speed settings and alien point values."""
-        self.ship_speed_factor *= self.speedup_scale
+        self.user_paddle_speed_factor *= self.speedup_scale
+        self.ai_paddle_speed_factor *= self.speedup_scale
         self.sushi_speed_factor *= self.speedup_scale
 
         self.alien_points = int(self.alien_points * self.score_scale)

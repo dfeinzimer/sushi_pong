@@ -82,22 +82,28 @@ class Paddle(Sprite):
     def update(self):
         """Update the paddle's position based on the movement flags."""
         # Update the paddles's center value, not the rect.
-        if self.moving_up and self.rect.top > 50:
-            self.centery -= self.ai_settings.ship_speed_factor
-        if self.moving_down and self.rect.bottom < 750:
-            self.centery += self.ai_settings.ship_speed_factor
 
         if self.paddle_type == "USER":
+            if self.moving_up and self.rect.top > 50:
+                self.centery -= self.ai_settings.user_paddle_speed_factor
+            if self.moving_down and self.rect.bottom < 750:
+                self.centery += self.ai_settings.user_paddle_speed_factor
+
             if self.moving_right and self.rect.right < 1150:
-                self.centerx += self.ai_settings.ship_speed_factor
+                self.centerx += self.ai_settings.user_paddle_speed_factor
             if self.moving_left and self.rect.left > 600:
-                self.centerx -= self.ai_settings.ship_speed_factor
+                self.centerx -= self.ai_settings.user_paddle_speed_factor
 
         if self.paddle_type == "AI":
+            if self.moving_up and self.rect.top > 50:
+                self.centery -= self.ai_settings.ai_paddle_speed_factor
+            if self.moving_down and self.rect.bottom < 750:
+                self.centery += self.ai_settings.ai_paddle_speed_factor
+
             if self.moving_right and self.rect.right < 600:
-                self.centerx += self.ai_settings.ship_speed_factor
+                self.centerx += self.ai_settings.ai_paddle_speed_factor
             if self.moving_left and self.rect.left > -200:
-                self.centerx -= self.ai_settings.ship_speed_factor
+                self.centerx -= self.ai_settings.ai_paddle_speed_factor
 
         # Update the rect object from self.center.
         self.rect.centerx = self.centerx
