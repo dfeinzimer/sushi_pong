@@ -48,7 +48,7 @@ def run_game():
     u_p_r.set_user_right_paddle()
     paddles.add(u_p_r)
 
-    a_p_b = Paddle(ai_settings,screen)
+    a_p_b = Paddle(ai_settings, screen)
     a_p_b.set_ai_bottom_paddle()
     paddles.add(a_p_b)
 
@@ -75,7 +75,8 @@ def run_game():
             # Check for collisions between sushi, screen edges and padles
             gf.check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball)
 
-        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title, net, netrect)
+        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball,
+                         play_button, game_title, net, netrect)
 
 
 run_game()

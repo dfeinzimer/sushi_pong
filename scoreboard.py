@@ -3,7 +3,8 @@ from pygame.sprite import Group
 
 from ball import Ball
 
-class Scoreboard():
+
+class Scoreboard:
     """A class to report scoring information."""
 
     def prep_sushis(self):
@@ -28,7 +29,7 @@ class Scoreboard():
         high_score = int(round(self.stats.high_score, -1))
         high_score_str = "{:,}".format(high_score)
         self.high_score_image = self.font.render(high_score_str, True,
-            self.text_color, self.ai_settings.bg_color)
+                                                 self.text_color, self.ai_settings.bg_color)
 
         # Center the high score at the top of the screen.
         self.high_score_rect = self.high_score_image.get_rect()
@@ -40,7 +41,7 @@ class Scoreboard():
         rounded_score = int(round(self.stats.user_score, -1))
         score_str = "{:,}".format(rounded_score)
         self.user_score_image = self.font.render(score_str, True, self.text_color,
-                                            self.ai_settings.bg_color)
+                                                 self.ai_settings.bg_color)
 
         # Display the score at the top right of the screen.
         self.user_score_rect = self.user_score_image.get_rect()
@@ -52,7 +53,7 @@ class Scoreboard():
         rounded_score = int(round(self.stats.ai_score, -1))
         score_str = "{:,}".format(rounded_score)
         self.ai_score_image = self.font.render(score_str, True, self.text_color,
-                                            self.ai_settings.bg_color)
+                                               self.ai_settings.bg_color)
 
         # Display the score at the top left of the screen.
         self.ai_score_rect = self.ai_score_image.get_rect()
