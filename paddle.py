@@ -10,9 +10,7 @@ class Paddle(Sprite):
         self.screen = screen
         self.ai_settings = ai_settings
 
-        # Get its rect
-        self.image = pygame.image.load('images/paddle_h.png')
-        self.rect = self.image.get_rect()
+        # Get the screen rect
         self.screen_rect = screen.get_rect()
 
         # Movement flags
@@ -22,62 +20,80 @@ class Paddle(Sprite):
         self.moving_down = False
 
     def set_user_top_paddle(self):
+        self.image = pygame.image.load('images/paddle_h.png')
+        self.rect = self.image.get_rect()
         self.rect.centerx = 925
-        self.center = float(self.rect.centerx)
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = self.screen_rect.top + 25
+        self.centery = float(self.rect.centery)
         self.rect.top = self.screen_rect.top
-        self.yval = float(self.rect.centery)
         self.paddle_type = "USER"
-
-    def set_ai_top_paddle(self):
-        self.rect.centerx = 300
-        self.center = float(self.rect.centerx)
-        self.rect.top = self.screen_rect.top
-        self.yval = float(self.rect.centery)
-        self.paddle_type = "AI"
 
     def set_user_bottom_paddle(self):
+        self.image = pygame.image.load('images/paddle_h.png')
+        self.rect = self.image.get_rect()
         self.rect.centerx = 925
-        self.center = float(self.rect.centerx)
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = self.screen_rect.bottom - 25
+        self.centery = float(self.rect.centery)
         self.rect.bottom = self.screen_rect.bottom
-        self.yval = float(self.rect.centery)
         self.paddle_type = "USER"
-
-    def set_ai_bottom_paddle(self):
-        self.rect.centerx = 300
-        self.center = float(self.rect.centerx)
-        self.rect.bottom = self.screen_rect.bottom
-        self.yval = float(self.rect.centery)
-        self.paddle_type = "AI"
 
     def set_user_right_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
-        self.rect.centerx = 1225
-        self.center = 1225
-        self.yval = 350
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 1175
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = 400
+        self.centery = float(self.rect.centery)
+        self.rect.right = self.screen_rect.right
         self.paddle_type = "USER"
+
+    def set_ai_top_paddle(self):
+        self.image = pygame.image.load('images/paddle_h.png')
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 300
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = self.screen_rect.top + 25
+        self.centery = float(self.rect.centery)
+        self.rect.top = self.screen_rect.top
+        self.paddle_type = "AI"
+
+    def set_ai_bottom_paddle(self):
+        self.image = pygame.image.load('images/paddle_h.png')
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 300
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = self.screen_rect.bottom - 25
+        self.centery = float(self.rect.centery)
+        self.rect.bottom = self.screen_rect.bottom
+        self.paddle_type = "AI"
 
     def set_ai_left_paddle(self):
         self.image = pygame.image.load('images/paddle_v.png')
-        self.rect.centerx = 75
-        self.center = 75
-        self.yval = 350
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 25
+        self.centerx = float(self.rect.centerx)
+        self.rect.centery = 400
+        self.centery = float(self.rect.centery)
+        self.rect.right = self.screen_rect.right
         self.paddle_type = "AI"
 
     def update(self):
         """Update the paddle's position based on the movement flags."""
         # Update the paddles's center value, not the rect.
         if self.moving_right and self.rect.right < 1150:
-            self.center += self.ai_settings.ship_speed_factor
+            self.centerx += self.ai_settings.ship_speed_factor
         if self.moving_left and self.rect.left > 600:
-            self.center -= self.ai_settings.ship_speed_factor
+            self.centerx -= self.ai_settings.ship_speed_factor
         if self.moving_up and self.rect.top > 50:
-            self.yval -= self.ai_settings.ship_speed_factor
+            self.centery -= self.ai_settings.ship_speed_factor
         if self.moving_down and self.rect.bottom < 650:
-            self.yval += self.ai_settings.ship_speed_factor
+            self.centery += self.ai_settings.ship_speed_factor
 
         # Update the rect object from self.center.
-        self.rect.centerx = self.center
-        self.rect.centery = self.yval
+        self.rect.centerx = self.centerx
+        self.rect.centery = self.centery
 
     def blitme(self):
         """Draw the ship at its current location."""
