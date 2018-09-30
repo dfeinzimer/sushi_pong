@@ -6,8 +6,8 @@ from ball import Ball
 
 def check_high_score(stats, sb):
     # Check to see if there's a new high score."""
-    if stats.score > stats.high_score:
-        stats.high_score = stats.score
+    if stats.user_score > stats.high_score:
+        stats.high_score = stats.user_score
         sb.prep_high_score()
 
 
@@ -39,9 +39,9 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t,
         stats.game_active = True
 
         # Reset the scoreboard images.
-        sb.prep_score()
+        sb.prep_user_score()
+        sb.prep_ai_score()
         sb.prep_high_score()
-        sb.prep_level()
         sb.prep_sushis()
 
         # Empty the list of aliens.
@@ -106,29 +106,6 @@ def check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l):
         u_p_r.moving_down = False
 
 
-def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets): # TODO Coverage - is used?
-    """Respond to paddle-sushi collisions."""
-    # Generate a collision list
-    collisions = pygame.sprite.groupcollide(bullets, sushi, True, True)
-
-    if collisions:
-        for sushi in collisions.values():
-            stats.score += ai_settings.alien_points * len(sushi)
-            sb.prep_score()
-        check_high_score(stats, sb)
-
-    if len(sushi) == 0:
-        # If the entire fleet is destroyed, start a new level.
-        bullets.empty()
-        ai_settings.increase_speed()
-
-        # Increase level.
-        stats.level += 1
-        sb.prep_level()
-
-        create_sushi(ai_settings, screen, sushi)
-
-
 def create_sushi(ai_settings, screen, sushi_balls):
     """Create and place a sushi piece."""
     sushi = Ball(ai_settings, screen)
@@ -140,15 +117,14 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
         if sushi.check_edges():
             # Respond appropriately if any sushi have reached an edge.
             if stats.sushis_left > 0:
-
                 if sushi.rect.centerx > 600:
                     stats.ai_score += ai_settings.alien_points
-                    print("AI scores!")
+                    sb.prep_ai_score()
                 elif sushi.rect.centerx < 600:
                     stats.user_score += ai_settings.alien_points
-                    print("User scores!")
-                elif stats.last_hit == "NULL":
-                    print("Nobody scores!")
+                    sb.prep_user_score()
+
+                check_high_score(stats, sb)
 
                 # Decrement remaining sushi
                 stats.sushis_left -= 1
