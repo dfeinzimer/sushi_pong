@@ -178,7 +178,7 @@ def change_sushi_direction(ai_settings, sushi_pieces):
         elif sushi.dx > 0 and sushi.dy < 0:     # To the right and up
             sushi.dx *= -1
         elif sushi.dx < 0 and sushi.dy > 0:     # To the left and down
-            sushi.dy *= -1
+            sushi.dx *= -1
         elif sushi.dx < 0 and sushi.dy < 0:     # To the left and up
             sushi.dy *= -1
 
