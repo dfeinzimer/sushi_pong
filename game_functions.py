@@ -104,7 +104,7 @@ def check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l):
         u_p_r.moving_down = False
 
 
-def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets):
+def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets): # TODO Coverage - is used?
     """Respond to paddle-sushi collisions."""
     # Generate a collision list
     collisions = pygame.sprite.groupcollide(bullets, sushi, True, True)
@@ -174,10 +174,10 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
                 pygame.mouse.set_visible(True)
 
 
-def change_fleet_direction(ai_settings, aliens):
+def change_sushi_direction(ai_settings, sushi_pieces):
     """Drop the entire fleet and change the fleet's direction."""
-    for alien in aliens.sprites():
-        alien.rect.y += ai_settings.fleet_drop_speed
+    for sushi in sushi_pieces.sprites():
+        sushi.rect.y += ai_settings.sushi_drop_speed
     ai_settings.fleet_direction *= -1
 
 
@@ -189,7 +189,7 @@ def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     elif paddle.paddle_type == "AI":
         stats.last_hit = "AI"
         print("AI hits")
-    change_fleet_direction(ai_settings, sushis)
+    change_sushi_direction(ai_settings, sushis)
 
 
 def check_aliens_bottom(ai_settings, screen, stats, sb, ship, sushi):
