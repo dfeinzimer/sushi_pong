@@ -51,7 +51,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t,
         create_sushi(ai_settings, screen, sushi_ball)
 
 
-def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title):
+def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title, net, netrect):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
@@ -61,6 +61,7 @@ def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_
     a_p_b.blitme()
     a_p_t.blitme()
     a_p_l.blitme()
+    screen.blit(net,netrect)
     sushi_ball.draw(screen)
 
     # Draw the score information.

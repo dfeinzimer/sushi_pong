@@ -22,6 +22,12 @@ def run_game():
     menu_font = pygame.font.SysFont('Arial', 40)
     game_title = menu_font.render("SUSHI PONG AI -- NO WALLS", False, (0, 0, 0))
 
+    # Make the net.
+    net = pygame.image.load('images/net.png')
+    netrect = net.get_rect()
+    screen_rect = screen.get_rect()
+    netrect.center = screen_rect.center
+
     # Create an instance to store game statistics and create a scoreboard.
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
@@ -69,7 +75,7 @@ def run_game():
             # Check for collisions between sushi, screen edges and padles
             gf.check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball)
 
-        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title)
+        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title, net, netrect)
 
 
 run_game()
