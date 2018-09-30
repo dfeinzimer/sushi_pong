@@ -172,9 +172,15 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
 
 def change_sushi_direction(ai_settings, sushi_pieces):
     """Drop the entire fleet and change the fleet's direction."""
+    '''
     for sushi in sushi_pieces.sprites():
         sushi.rect.y += ai_settings.sushi_drop_speed
     ai_settings.fleet_direction *= -1
+    '''
+    for sushi in sushi_pieces.sprites():
+        if sushi.dx >= 0 and sushi.dy >= 0: # To the right and down
+            sushi.dy *= -1
+
 
 
 def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
