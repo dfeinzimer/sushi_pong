@@ -11,7 +11,7 @@ def check_high_score(stats, sb):
         sb.prep_high_score()
 
 
-def check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball):
+def check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, game_title):
     # Respond to keypress and mouse events.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -22,10 +22,10 @@ def check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p
             check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, screen, stats, sb, play_button, sushi_ball, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y)
 
 
-def check_play_button(ai_settings, screen, stats, sb, play_button, sushi_ball, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y):
     """Start a new game when the player clicks Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
@@ -51,7 +51,7 @@ def check_play_button(ai_settings, screen, stats, sb, play_button, sushi_ball, m
         create_sushi(ai_settings, screen, sushi_ball)
 
 
-def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button):
+def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title):
     """Update images on the screen and flip to the new screen."""
     # Redraw the screen during each pass through the loop.
     screen.fill(ai_settings.bg_color)
@@ -69,6 +69,7 @@ def update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_
     # Draw the play button if the game is inactive.
     if not stats.game_active:
         play_button.draw_button()
+        screen.blit(game_title,(325,300))
 
     # Make the most recently drawn screen visible.
     pygame.display.flip()
@@ -141,8 +142,12 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
 
                 if sushi.rect.centerx > 600:
                     stats.ai_score += ai_settings.alien_points
+                    print("AI scores!")
                 elif sushi.rect.centerx < 600:
                     stats.user_score += ai_settings.alien_points
+                    print("User scores!")
+                elif stats.last_hit == "NULL":
+                    print("Nobody scores!")
 
                 # Decrement remaining sushi
                 stats.sushis_left -= 1
@@ -184,8 +189,10 @@ def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     # Respond to a paddle being hit by sushi
     if paddle.paddle_type == "USER":
         stats.last_hit = "USER"
+        print("User hits")
     elif paddle.paddle_type == "AI":
         stats.last_hit = "AI"
+        print("AI hits")
     change_sushi_direction(ai_settings, sushis)
 
 

@@ -18,6 +18,10 @@ def run_game():
     # Make the Play button.
     play_button = Button(ai_settings, screen, "Play")
 
+    # Make the menu.
+    menu_font = pygame.font.SysFont('Arial', 40)
+    game_title = menu_font.render("SUSHI PONG AI -- NO WALLS", False, (0, 0, 0))
+
     # Create an instance to store game statistics and create a scoreboard.
     stats = GameStats(ai_settings)
     sb = Scoreboard(ai_settings, screen, stats)
@@ -55,7 +59,7 @@ def run_game():
     # Start the main loop for the game.
     while True:
 
-        gf.check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball)
+        gf.check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, game_title)
 
         if stats.game_active:
             # Move the paddles, sushi
@@ -65,7 +69,7 @@ def run_game():
             # Check for collisions between sushi, screen edges and padles
             gf.check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball)
 
-        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button)
+        gf.update_screen(ai_settings, screen, stats, sb, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, play_button, game_title)
 
 
 run_game()
