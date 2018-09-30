@@ -139,10 +139,10 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
             # Respond appropriately if any sushi have reached an edge.
             if stats.sushis_left > 0:
 
-                if stats.last_hit == "AI":
+                if sushi.rect.centerx > 600:
                     stats.ai_score += ai_settings.alien_points
                     print("AI scores!")
-                elif stats.last_hit == "USER":
+                elif sushi.rect.centerx < 600:
                     stats.user_score += ai_settings.alien_points
                     print("User scores!")
                 elif stats.last_hit == "NULL":

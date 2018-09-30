@@ -84,7 +84,7 @@ class Paddle(Sprite):
         # Update the paddles's center value, not the rect.
         if self.moving_up and self.rect.top > 50:
             self.centery -= self.ai_settings.ship_speed_factor
-        if self.moving_down and self.rect.bottom < 650:
+        if self.moving_down and self.rect.bottom < 750:
             self.centery += self.ai_settings.ship_speed_factor
 
         if self.paddle_type == "USER":
