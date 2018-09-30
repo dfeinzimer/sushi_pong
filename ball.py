@@ -25,8 +25,8 @@ class Ball(Sprite):
         self.centery = float(self.rect.centery)
 
         # Store the sushi's direction and speed
-        self.dx = 1
-        self.dy = 2
+        self.dx = random.randint(-2,2)
+        self.dy = random.randint(-2,2)
 
     def blitme(self):
         """Draw the sushi at its current location."""
