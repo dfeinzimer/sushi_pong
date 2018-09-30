@@ -16,8 +16,10 @@ class Ball(Sprite):
         self.rect = self.image.get_rect()
 
         # Start each new sushi near the top left of the screen.
-        self.rect.x = self.rect.width
-        self.rect.y = self.rect.height
+        #self.rect.x = self.rect.width
+        #self.rect.y = self.rect.height
+        self.rect.x = 600
+        self.rect.y = 400
 
         # Store the alien's exact position.
         self.x = float(self.rect.x)
