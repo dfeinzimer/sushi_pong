@@ -1,4 +1,5 @@
 import pygame
+import random
 from pygame.sprite import Sprite
 
 
@@ -16,13 +17,12 @@ class Ball(Sprite):
         self.rect = self.image.get_rect()
 
         # Start each new sushi near the top left of the screen.
-        #self.rect.x = self.rect.width
-        #self.rect.y = self.rect.height
-        self.rect.x = 600
-        self.rect.y = 400
+        self.rect.x = random.randint(400,800)
+        self.rect.y = random.randint(300,500)
 
         # Store the alien's exact position.
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
     def blitme(self):
         """Draw the alien at its current location."""

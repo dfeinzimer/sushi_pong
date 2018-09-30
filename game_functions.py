@@ -130,10 +130,6 @@ def check_paddle_sushi_collisions(ai_settings, screen, stats, sb, sushi, bullets
 def create_sushi(ai_settings, screen, sushi_balls):
     """Create and place a sushi piece."""
     sushi = Ball(ai_settings, screen)
-    #sushi_width = sushi.rect.width
-    #sushi.x = sushi_width + 2 * sushi_width
-    #sushi.rect.x = sushi.x
-    #sushi.rect.y = sushi.rect.height + 2 * sushi.rect.height
     sushi_balls.add(sushi)
 
 
