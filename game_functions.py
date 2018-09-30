@@ -22,10 +22,10 @@ def check_control_events(ai_settings, screen, stats, sb, play_button, u_p_b, u_p
             check_keyup_events(event, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l)
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y)
+            check_play_button(ai_settings, screen, stats, sb, play_button, sushi_ball, mouse_x, mouse_y)
 
 
-def check_play_button(ai_settings, screen, stats, sb, play_button, u_p_b, u_p_t, u_p_r, a_p_b, a_p_t, a_p_l, sushi_ball, mouse_x, mouse_y):
+def check_play_button(ai_settings, screen, stats, sb, play_button, sushi_ball, mouse_x, mouse_y):
     """Start a new game when the player clicks Play."""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
@@ -141,12 +141,8 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
 
                 if sushi.rect.centerx > 600:
                     stats.ai_score += ai_settings.alien_points
-                    print("AI scores!")
                 elif sushi.rect.centerx < 600:
                     stats.user_score += ai_settings.alien_points
-                    print("User scores!")
-                elif stats.last_hit == "NULL":
-                    print("Nobody scores!")
 
                 # Decrement remaining sushi
                 stats.sushis_left -= 1
@@ -188,10 +184,8 @@ def paddle_hit(ai_settings, screen, stats, sb, paddle, sushis):
     # Respond to a paddle being hit by sushi
     if paddle.paddle_type == "USER":
         stats.last_hit = "USER"
-        print("User hits")
     elif paddle.paddle_type == "AI":
         stats.last_hit = "AI"
-        print("AI hits")
     change_sushi_direction(ai_settings, sushis)
 
 
