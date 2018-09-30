@@ -59,6 +59,7 @@ def run_game():
 
         if stats.game_active:
             # Move the paddles, sushi
+            gf.ai_play(a_p_b, a_p_t, a_p_l, sushi_ball)
             paddles.update()
             sushi_ball.update()
             # Check for collisions between sushi, screen edges and padles

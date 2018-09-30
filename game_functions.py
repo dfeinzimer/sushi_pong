@@ -171,12 +171,7 @@ def check_sushi_at_edges(ai_settings, screen, stats, sb, sushis):
 
 
 def change_sushi_direction(ai_settings, sushi_pieces):
-    """Drop the entire fleet and change the fleet's direction."""
-    '''
-    for sushi in sushi_pieces.sprites():
-        sushi.rect.y += ai_settings.sushi_drop_speed
-    ai_settings.fleet_direction *= -1
-    '''
+    """Change the sushi's direction."""
     for sushi in sushi_pieces.sprites():
         if sushi.dx > 0 and sushi.dy > 0:       # To the right and down
             sushi.dy *= -1
@@ -208,3 +203,30 @@ def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
     for paddle in paddles:
         if pygame.sprite.spritecollideany(paddle, sushi_ball):
             paddle_hit(ai_settings, screen, stats, sb, paddle, sushi_ball)
+
+
+def ai_play(a_p_b, a_p_t, a_p_l, sushi):
+    for piece in sushi.sprites():
+        if piece.centery < a_p_l.rect.centery:
+            a_p_l.moving_up = True
+        else:
+            a_p_l.moving_up = False
+
+        if piece.centery > a_p_l.rect.centery:
+            a_p_l.moving_down = True
+        else:
+            a_p_l.moving_down = False
+
+        if piece.centerx < a_p_t.rect.centerx:
+            a_p_t.moving_left = True
+            a_p_b.moving_left = True
+        else:
+            a_p_t.moving_left = False
+            a_p_b.moving_left = False
+
+        if piece.centerx > a_p_t.rect.centerx and a_p_t.rect.right < 600:
+            a_p_t.moving_right = True
+            a_p_b.moving_right = True
+        else:
+            a_p_t.moving_right = False
+            a_p_b.moving_right = False

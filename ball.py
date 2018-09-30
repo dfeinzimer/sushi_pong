@@ -45,11 +45,6 @@ class Ball(Sprite):
             return True
 
     def update(self):
-        """Move the sushi left or right."""
-        '''
-        self.centerx += (self.ai_settings.sushi_speed_factor * self.ai_settings.fleet_direction)
-        self.rect.centerx = self.centerx
-        '''
         self.centerx += self.dx * self.ai_settings.sushi_speed_factor
         self.rect.centerx = self.centerx
 
