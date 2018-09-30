@@ -10,7 +10,7 @@ class Settings():
 
         # Paddle settings
         self.user_paddle_speed_factor = 1.5
-        self.ai_paddle_speed_factor = .6
+        self.ai_paddle_speed_factor = .8
         self.ship_limit = 3
 
         # Sushi settings
@@ -18,7 +18,7 @@ class Settings():
         self.sushi_drop_speed = 10
 
         # How quickly the game speeds up
-        self.speedup_scale = 1.05
+        self.speedup_scale = 1.001
         # How quickly the alien point value increase
         self.score_scale = 1.5
 
@@ -27,7 +27,7 @@ class Settings():
     def initialize_dynamic_settings(self):
         """Initialize settings that change throughout the game."""
         self.user_paddle_speed_factor = 1.5
-        self.ai_paddle_speed_factor = .6
+        self.ai_paddle_speed_factor = .8
         self.sushi_speed_factor = .5
 
         # fleet direction of 1  represents right; -1 represents left.
@@ -42,4 +42,4 @@ class Settings():
         self.ai_paddle_speed_factor *= self.speedup_scale
         self.sushi_speed_factor *= self.speedup_scale
 
-        self.alien_points = int(self.alien_points * self.score_scale)
+        #self.alien_points = int(self.alien_points * self.score_scale)
