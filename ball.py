@@ -15,7 +15,7 @@ class Ball(Sprite):
         self.image = pygame.image.load('images/sushi.png')
         self.rect = self.image.get_rect()
 
-        # Start each new alien near the top left of the screen.
+        # Start each new sushi near the top left of the screen.
         self.rect.x = self.rect.width
         self.rect.y = self.rect.height
 

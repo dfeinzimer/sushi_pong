@@ -212,4 +212,4 @@ def check_match_events(ai_settings, screen, stats, sb, paddles, sushi_ball):
             paddle_hit(ai_settings, screen, stats, sb, paddle, sushi_ball)
 
     # Look for aliens hitting the bottom of the screen.
-    check_aliens_bottom(ai_settings, screen, stats, sb, paddles, sushi_ball)
+    #check_aliens_bottom(ai_settings, screen, stats, sb, paddles, sushi_ball)
