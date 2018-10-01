@@ -1,11 +1,9 @@
-class Settings:
+class Settings():
     """A class to store all settings for Sushi Pong"""
 
     def __init__(self):
         """Initialize the game's static settings."""
         # Screen settings
-        self.fleet_direction = 1
-        self.alien_points = 50
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (230, 230, 230)
@@ -31,6 +29,12 @@ class Settings:
         self.user_paddle_speed_factor = 1.5
         self.ai_paddle_speed_factor = .8
         self.sushi_speed_factor = .5
+
+        # fleet direction of 1  represents right; -1 represents left.
+        self.fleet_direction = 1
+
+        # Scoring
+        self.alien_points = 50
 
     def increase_speed(self):
         """Increase speed settings and alien point values."""
